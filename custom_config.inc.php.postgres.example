@@ -1,0 +1,18 @@
+<?php
+/**
+ * TestLink PostgreSQL Configuration Example
+ * 
+ * Copy this file to custom_config.inc.php and update the values
+ */
+
+// Database Configuration for PostgreSQL
+define('DB_TYPE', 'postgres');
+define('DB_USER', 'teste');
+define('DB_PASS', 'teste');
+define('DB_HOST', 'db');  // This matches the service name in docker-compose.postgres.yml
+define('DB_NAME', 'testlink');
+define('DB_TABLE_PREFIX', '');
+
+// Paths configuration for Docker setup
+$tlCfg->log_path = '/var/testlink/logs/';
+$g_repositoryPath = '/var/testlink/upload_area/';

@@ -3,12 +3,14 @@ FROM php:7.4-apache
 RUN apt update && apt upgrade -y
 RUN apt install -y \
   default-mysql-client \
+  postgresql-client \
+  libpq-dev \
   zlib1g-dev \
   libpng-dev \
   libjpeg-dev \
   libfreetype-dev
-RUN docker-php-ext-install mysqli && \
-  docker-php-ext-enable mysqli && \
+RUN docker-php-ext-install mysqli pdo pdo_mysql pdo_pgsql pgsql && \
+  docker-php-ext-enable mysqli pdo pdo_mysql pdo_pgsql pgsql && \
   docker-php-ext-configure gd --with-freetype --with-jpeg && \
   docker-php-ext-install gd
 RUN apt clean

@@ -1,0 +1,45 @@
+networks: 
+  testlink:
+    name: testlink
+services:
+  db:
+    image: postgres:16-alpine
+    networks:
+    - testlink
+    restart: unless-stopped
+    environment:
+    - POSTGRES_USER=teste
+    - POSTGRES_PASSWORD=teste
+    - POSTGRES_DB=testlink
+    volumes:
+    - postgres:/var/lib/postgresql/data
+
+  maildev:
+    image: maildev/maildev:latest
+    networks:
+    - testlink
+    ports:
+    - 1080:1080
+    - 1025:1025
+    restart: unless-stopped
+    environment:
+    - NODE_TLS_REJECT_UNAUTHORIZED=0
+
+  app: &app
+    build: .
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_started
+      maildev:
+        condition: service_started
+    networks:
+    - testlink
+    ports:
+    - 8090:80
+    volumes:
+      - ./logs:/var/testlink/logs:Z
+      - ./upload_area:/var/testlink/upload_area:Z
+
+volumes:
+  postgres:
