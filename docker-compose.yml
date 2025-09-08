@@ -42,10 +42,13 @@ services:
     environment:
       # Control install directory after setup: "remove" (default), "rename", or "keep"
       - DISABLE_INSTALL_DIR=remove
+      # Enable XML-RPC API: "true" or "false" (default: false)
+      - TL_ENABLE_XMLRPC=true
+      # Show API key input in UI: "true" or "false" (default: false)
+      - TL_SHOW_API_KEY_INPUT=true
     volumes:
       - ./logs:/var/testlink/logs:Z
       - ./upload_area:/var/testlink/upload_area:Z
-      - ./custom_config.inc.php:/var/www/html/custom_config.inc.php:ro
 
   restore:
     <<: *app
