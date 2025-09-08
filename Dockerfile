@@ -19,5 +19,10 @@ WORKDIR /var/www/html
 
 COPY . .
 COPY ./docker/php.ini-production /usr/local/etc/php/conf.d/php.ini
+COPY docker-entrypoint.sh /usr/local/bin/
 
-RUN  chown -R www-data:www-data /var/www/html/gui/templates_c
+RUN  chown -R www-data:www-data /var/www/html/gui/templates_c && \
+     chmod +x /usr/local/bin/docker-entrypoint.sh
+
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["apache2-foreground"]

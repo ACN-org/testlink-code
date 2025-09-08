@@ -39,6 +39,9 @@ services:
     - testlink
     ports:
     - 8090:80
+    environment:
+      # Control install directory after setup: "remove" (default), "rename", or "keep"
+      - DISABLE_INSTALL_DIR=remove
     volumes:
       - ./logs:/var/testlink/logs:Z
       - ./upload_area:/var/testlink/upload_area:Z
