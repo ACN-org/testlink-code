@@ -42,6 +42,7 @@ services:
     volumes:
       - ./logs:/var/testlink/logs:Z
       - ./upload_area:/var/testlink/upload_area:Z
+      - ./custom_config.inc.php:/var/www/html/custom_config.inc.php:ro
 
   restore:
     <<: *app
